@@ -1,0 +1,18 @@
+# This is a basic workflow to execute sync_files.ps1
+name: deploy_script_files
+on:
+  pull_request:
+    branches: 
+      - main
+    types: [closed]
+jobs:
+  if_merged:
+    name: sync_files
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: self-hosted
+    steps:
+      # Checks-out repository under $GITHUB_WORKSPACE, so job can access it
+      - uses: actions/checkout@v4
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: Powershell.exe -File .\runner_automation\powershell\sync_files.ps1
